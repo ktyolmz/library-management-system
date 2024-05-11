@@ -1,0 +1,40 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'info.solidsoft.pitest' version '1.15.0'
+}
+
+pitest {
+	//adds dependency to org.pitest:pitest-junit5-plugin and sets "testPlugin" to "junit5"
+	junit5PluginVersion = '1.0.0'    //or 0.15 for PIT <1.9.0
+	// ...
+}
+
+group = 'com.ktyolmz'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.projectlombok:lombok:1.18.28'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.platform:junit-platform-suite-api:1.10.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-suite-engine:1.10.2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
